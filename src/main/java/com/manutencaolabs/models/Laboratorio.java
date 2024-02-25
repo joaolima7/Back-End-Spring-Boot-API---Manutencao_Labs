@@ -34,7 +34,7 @@ public class Laboratorio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //Parametros da coluna no Spring
-    @Column(name = "codlaboratorio", unique = true)
+    @Column(name = "codlaboratorio", unique = true, nullable = false)
     private Long codlaboratorio;
 
     @Column(name = "numerolaboratorio", nullable = false, unique = true) 
