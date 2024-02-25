@@ -3,9 +3,9 @@ package com.manutencaolabs.manutencaolabs.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.manutencaolabs.models.Situacao;
+import com.manutencaolabs.models.Usuario;
 
 @Repository
-public interface SituacaoRepository extends JpaRepository<Situacao, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
 }
