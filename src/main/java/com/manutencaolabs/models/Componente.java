@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = Componente.TABLE_NAME)
@@ -56,5 +57,6 @@ public class Componente {
         this.nome_componente = nome_componente;
     }
 
+    
 
 }
