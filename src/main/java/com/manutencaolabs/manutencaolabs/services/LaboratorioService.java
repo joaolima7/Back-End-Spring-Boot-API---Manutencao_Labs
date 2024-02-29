@@ -12,7 +12,7 @@ import com.manutencaolabs.models.Laboratorio;
 @Service
 public class LaboratorioService {
 
-    //Instacia com constructor Autierid
+    //Instacia com constructor Autowired
     @Autowired
     private LaboratorioRepository laboratorioRepository;
 
@@ -23,7 +23,8 @@ public class LaboratorioService {
         return laboratorioRepository.findAll();
     }
 
-    public Optional<Laboratorio> searchLaboratorioPorId(Long id) {
+    //Procurar dado pelo ID.
+    public Optional<Laboratorio> findById(Long id) {
         return laboratorioRepository.findById(id);
     }
 
@@ -35,10 +36,21 @@ public class LaboratorioService {
         laboratorioRepository.deleteById(id);
     }
 
-    public Laboratorio createLaboratorio(Laboratorio laboratorio) {
+    public Laboratorio create(Laboratorio laboratorio) {
         //Zera o Id pra confirmar que vai criar um novo dado em vez de atualizar outro
         laboratorio.setCodlaboratorio(null);
         return laboratorioRepository.save(laboratorio);
     }
   
+    public Laboratorio update(Laboratorio laboratorio) {
+        // Verifica se o laboratório existe pelo ID
+        Laboratorio existingLaboratorio = laboratorioRepository.findById(laboratorio.getCodlaboratorio())
+                .orElseThrow(() -> new RuntimeException("Laboratório não encontrado!"));
+
+        // Atualiza os campos necessários
+        existingLaboratorio.setNumerolaboratorio(laboratorio.getNumerolaboratorio());
+
+        // Salva as alterações no repository
+        return laboratorioRepository.save(existingLaboratorio);
+    }
 }
