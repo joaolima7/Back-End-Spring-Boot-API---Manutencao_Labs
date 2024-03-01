@@ -36,13 +36,14 @@ public class LaboratorioService {
         laboratorioRepository.deleteById(id);
     }
 
-    public Laboratorio create(Laboratorio laboratorio) {
+    public Laboratorio createLaboratorio(Laboratorio laboratorio) {
         //Zera o Id pra confirmar que vai criar um novo dado em vez de atualizar outro
         laboratorio.setCodlaboratorio(null);
         return laboratorioRepository.save(laboratorio);
     }
   
-    public Laboratorio update(Laboratorio laboratorio) {
+    //Não usada nessa Tabela, somente para aprendizado.
+    public Laboratorio updateLaboratorio(Laboratorio laboratorio) {
         // Verifica se o laboratório existe pelo ID
         Laboratorio existingLaboratorio = laboratorioRepository.findById(laboratorio.getCodlaboratorio())
                 .orElseThrow(() -> new RuntimeException("Laboratório não encontrado!"));

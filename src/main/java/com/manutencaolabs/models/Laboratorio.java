@@ -40,7 +40,6 @@ public class Laboratorio {
     @Column(name = "numerolaboratorio", nullable = false, unique = true) 
     //Paramtros no banco de dados antes de criar um novo    
     @NotNull(groups = {CreateLaboratorio.class})
-    @NotEmpty(groups = {CreateLaboratorio.class})
     private Integer numerolaboratorio;
 
 

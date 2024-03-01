@@ -32,7 +32,7 @@ public class Computador {
     @Column(name = "codcomputador", unique = true)
     private Long codcomputador;
 
-    @Column(name = "patrimonio", nullable = false, unique = true)
+    @Column(name = "patrimonio", unique = true)
     @NotNull(groups = { CreateComponente.class, UpdateComponente.class })
     @NotEmpty(groups = { CreateComponente.class, UpdateComponente.class })
     private String patrimonio;
