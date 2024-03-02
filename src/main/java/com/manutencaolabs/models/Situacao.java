@@ -24,8 +24,6 @@ public class Situacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codsituacao", nullable = false, unique = true)
-    @NotNull(groups = CreateSituacao.class)
-    @NotEmpty(groups = UpdateSituacao.class)
     private Long codsituacao;
 
     @Column(name = "tiposituacao", nullable = false)

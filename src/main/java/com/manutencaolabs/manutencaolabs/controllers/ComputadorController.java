@@ -1,6 +1,7 @@
 package com.manutencaolabs.manutencaolabs.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +26,7 @@ import jakarta.validation.Valid;
 @Validated
 public class ComputadorController {
 
+    @Autowired
     private ComputadorService computadorService;
 
    @GetMapping("/{id}")
@@ -42,7 +44,7 @@ public class ComputadorController {
     @PostMapping("/add")
     @Validated(Computador.CreateComputador.class)
     public void create(@Valid @RequestBody Computador obj) {
-            Computador computador = this.computadorService.saveComputador(obj);
+           this.computadorService.saveComputador(obj);
     }
 
     @DeleteMapping("/del/{id}")
