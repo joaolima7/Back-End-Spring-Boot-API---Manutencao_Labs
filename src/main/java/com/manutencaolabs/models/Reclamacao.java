@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 public class Reclamacao {
 
     public interface CreateReclamacao {
-    }
+    }   
 
     public interface UpdateReclamacao {
     }

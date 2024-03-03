@@ -16,7 +16,7 @@ public class Componente {
 
     public interface CreateComponente {}
 
-    public interface UpdateComponente{}
+    public interface UpdateComponente{} 	
     
     public static final String TABLE_NAME = "componente";
 

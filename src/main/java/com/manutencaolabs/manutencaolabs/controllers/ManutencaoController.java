@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.manutencaolabs.manutencaolabs.services.ManutencaoService;
 import com.manutencaolabs.models.Manutencao;
-import com.manutencaolabs.models.NivelAcesso;
-
 import jakarta.validation.Valid;
 
 @RestController

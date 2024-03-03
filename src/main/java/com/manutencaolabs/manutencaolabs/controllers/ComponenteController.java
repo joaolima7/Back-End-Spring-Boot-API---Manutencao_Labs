@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manutencaolabs.manutencaolabs.services.ComponenteService;
 import com.manutencaolabs.models.Componente;
-import com.manutencaolabs.models.Manutencao;
-
 import jakarta.validation.Valid;
 
 @RestController
