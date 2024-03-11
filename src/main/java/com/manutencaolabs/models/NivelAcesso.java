@@ -1,12 +1,17 @@
 package com.manutencaolabs.models;
 
+import java.util.Set;
+
 import org.hibernate.annotations.Collate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,23 +31,23 @@ public class NivelAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codnivel_acesso")
-    @NotNull(groups = CreateNivelAcesso.class)
-    @NotEmpty(groups = CreateNivelAcesso.class)
     private Long codnivel_acesso;
 
     @Column(name = "tipo_acesso", nullable = false)
-    @NotNull(groups = { CreateNivelAcesso.class, UpdateNivelAcesso.class })
-    @NotEmpty(groups = { CreateNivelAcesso.class, UpdateNivelAcesso.class })
     private String tipo_acesso;
     
+    @OneToMany(mappedBy = "nivelAcesso")
+    @JsonIgnore
+    private Set<Usuario> usuarios;
 
     public NivelAcesso() {
     }
 
 
-    public NivelAcesso(Long codnivel_acesso, String tipo_acesso) {
+    public NivelAcesso(Long codnivel_acesso, String tipo_acesso, Set<Usuario> usuarios) {
         this.codnivel_acesso = codnivel_acesso;
         this.tipo_acesso = tipo_acesso;
+        this.usuarios = usuarios;
     }
 
 
@@ -61,5 +66,13 @@ public class NivelAcesso {
     public void setTipo_acesso(String tipo_acesso) {
         this.tipo_acesso = tipo_acesso;
     }
-    
+
+    public Set<Usuario> getUsuarios() {
+        return this.usuarios;
+    }
+
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
 }

@@ -1,11 +1,16 @@
 package com.manutencaolabs.models;
 
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -41,17 +46,26 @@ public class Laboratorio {
     //Paramtros no banco de dados antes de criar um novo    
     @NotNull(groups = {CreateLaboratorio.class})
     private Integer numerolaboratorio;
+    
+    @OneToMany(mappedBy = "laboratorio")
+    @JsonIgnore
+    private Set<Computador> computadores;
+
+    @OneToMany(mappedBy = "laboratorio")
+    @JsonIgnore
+    private Set<Reclamacao> reclamacoesLab;
 
 
     public Laboratorio() {
     }
 
 
-    public Laboratorio(Long codlaboratorio, Integer numerolaboratorio) {
+    public Laboratorio(Long codlaboratorio, Integer numerolaboratorio, Set<Computador> computadores, Set<Reclamacao> reclamacoesLab) {
         this.codlaboratorio = codlaboratorio;
         this.numerolaboratorio = numerolaboratorio;
+        this.computadores = computadores;
+        this.reclamacoesLab = reclamacoesLab;
     }
-
 
 
     public Long getCodlaboratorio() {
@@ -69,6 +83,23 @@ public class Laboratorio {
     public void setNumerolaboratorio(Integer numerolaboratorio) {
         this.numerolaboratorio = numerolaboratorio;
     }
+
+    public Set<Computador> getComputadores() {
+        return this.computadores;
+    }
+
+    public void setComputadores(Set<Computador> computadores) {
+        this.computadores = computadores;
+    }
+
+    public Set<Reclamacao> getReclamacoesLab() {
+        return this.reclamacoesLab;
+    }
+
+    public void setReclamacoesLab(Set<Reclamacao> reclamacoesLab) {
+        this.reclamacoesLab = reclamacoesLab;
+    }
+
 
     
 }

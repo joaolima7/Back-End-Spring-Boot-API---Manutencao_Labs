@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manutencaolabs.models.Componente.CreateComponente;
 import com.manutencaolabs.models.Componente.UpdateComponente;
 
@@ -15,10 +17,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = Usuario.TABLE_NAME)
@@ -40,7 +44,7 @@ public class Usuario {
     @Column(name = "login", nullable = false, unique = true)
     @NotNull(groups = { CreateUsuario.class, UpdateUsuario.class })
     @NotEmpty(groups = { CreateUsuario.class, UpdateUsuario.class })
-    private Integer login;
+    private String login;
 
     @Column(name = "senha", nullable = false)
     @NotNull(groups = { CreateUsuario.class, UpdateUsuario.class })
@@ -60,18 +64,26 @@ public class Usuario {
     private String token;
 
     @Column(name = "reset_expires", nullable = true)
-    private Timestamp reset_expires;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime reset_expires;
 
     @ManyToOne
     @JoinColumn(name = "nivelacesso_fk", nullable = false, updatable = false)
     private NivelAcesso nivelAcesso;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private Set<Manutencao> manutencoes;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private Set<Reclamacao> reclamacoesUser;
 
     public Usuario() {
     }
 
 
-    public Usuario(Long codusuario, Integer login, String senha, String nome_usuario, String email_usuario, String reset_token, String token, Timestamp reset_expires, NivelAcesso nivelAcesso) {
+    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email_usuario, String reset_token, String token, LocalDateTime reset_expires, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes, Set<Reclamacao> reclamacoesUser) {
         this.codusuario = codusuario;
         this.login = login;
         this.senha = senha;
@@ -81,6 +93,8 @@ public class Usuario {
         this.token = token;
         this.reset_expires = reset_expires;
         this.nivelAcesso = nivelAcesso;
+        this.manutencoes = manutencoes;
+        this.reclamacoesUser = reclamacoesUser;
     }
 
 
@@ -92,11 +106,11 @@ public class Usuario {
         this.codusuario = codusuario;
     }
 
-    public Integer getLogin() {
+    public String getLogin() {
         return this.login;
     }
 
-    public void setLogin(Integer login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
@@ -140,11 +154,11 @@ public class Usuario {
         this.token = token;
     }
 
-    public Timestamp getReset_expires() {
+    public LocalDateTime getReset_expires() {
         return this.reset_expires;
     }
 
-    public void setReset_expires(Timestamp reset_expires) {
+    public void setReset_expires(LocalDateTime reset_expires) {
         this.reset_expires = reset_expires;
     }
 
@@ -156,4 +170,20 @@ public class Usuario {
         this.nivelAcesso = nivelAcesso;
     }
 
+    public Set<Manutencao> getManutencoes() {
+        return this.manutencoes;
+    }
+
+    public void setManutencoes(Set<Manutencao> manutencoes) {
+        this.manutencoes = manutencoes;
+    }
+
+    public Set<Reclamacao> getReclamacoesUser() {
+        return this.reclamacoesUser;
+    }
+
+    public void setReclamacoesUser(Set<Reclamacao> reclamacoesUser) {
+        this.reclamacoesUser = reclamacoesUser;
+    }
+    
 }

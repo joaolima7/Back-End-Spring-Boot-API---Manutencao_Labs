@@ -1,10 +1,16 @@
 package com.manutencaolabs.models;
 
+import java.util.ArrayList;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,14 +37,18 @@ public class Situacao {
     @NotEmpty(groups = { CreateSituacao.class, UpdateSituacao.class })
     private String tiposituacao;
 
+    @OneToMany(mappedBy = "situacao")
+    @JsonIgnore
+    private Set<Computador> computadores;
 
     public Situacao() {
     }
 
 
-    public Situacao(Long codsituacao, String tiposituacao) {
+    public Situacao(Long codsituacao, String tiposituacao, Set<Computador> computadores) {
         this.codsituacao = codsituacao;
         this.tiposituacao = tiposituacao;
+        this.computadores = computadores;
     }
 
 
@@ -57,5 +67,14 @@ public class Situacao {
     public void setTiposituacao(String tiposituacao) {
         this.tiposituacao = tiposituacao;
     }
-    
+
+    public Set<Computador> getComputadores() {
+        return this.computadores;
+    }
+
+    public void setComputadores(Set<Computador> computadores) {
+        this.computadores = computadores;
+    }
+
+
 }

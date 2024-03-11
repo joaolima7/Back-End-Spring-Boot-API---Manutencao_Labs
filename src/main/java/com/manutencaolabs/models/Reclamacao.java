@@ -1,6 +1,10 @@
 package com.manutencaolabs.models;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,7 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +25,7 @@ import jakarta.validation.constraints.NotNull;
 public class Reclamacao {
 
     public interface CreateReclamacao {
-    }   
+    }
 
     public interface UpdateReclamacao {
     }
@@ -39,6 +46,7 @@ public class Reclamacao {
     private String status = "aberta";
 
     @Column(name = "datahora_reclamacao")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataHoraReclamacao;
 
     @ManyToOne
@@ -51,14 +59,22 @@ public class Reclamacao {
 
     @ManyToOne
     @JoinColumn(name = "codusuario_fk", nullable = false, updatable = false)
+    //@JsonIgnore
     private Usuario usuario;
 
+    @OneToOne(mappedBy = "reclamacao")
+    @JsonIgnore
+    private Manutencao manutencao;
+
+    @ManyToMany
+    @JoinTable(name = "reclamacao_componente", joinColumns = @JoinColumn(name = "reclamacao_fk"), inverseJoinColumns = @JoinColumn(name = "componente_fk"))
+    private Set<Componente> componentes;
 
     public Reclamacao() {
     }
 
-
-    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao, Computador computador, Laboratorio laboratorio, Usuario usuario) {
+    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao,
+            Computador computador, Laboratorio laboratorio, Usuario usuario, Set<Componente> componentes) {
         this.codreclamacao = codreclamacao;
         this.descricao = descricao;
         this.status = status;
@@ -66,8 +82,8 @@ public class Reclamacao {
         this.computador = computador;
         this.laboratorio = laboratorio;
         this.usuario = usuario;
+        this.componentes = componentes;
     }
-
 
     public Long getCodreclamacao() {
         return this.codreclamacao;
@@ -123,6 +139,14 @@ public class Reclamacao {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Set<Componente> getComponentes() {
+        return this.componentes;
+    }
+
+    public void setComponentes(Set<Componente> componentes) {
+        this.componentes = componentes;
     }
 
 }

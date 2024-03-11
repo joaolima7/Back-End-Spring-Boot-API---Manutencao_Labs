@@ -1,5 +1,6 @@
 package com.manutencaolabs.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manutencaolabs.models.Componente.CreateComponente;
 import com.manutencaolabs.models.Componente.UpdateComponente;
 
@@ -10,10 +11,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = Computador.TABLE_NAME)
@@ -47,17 +50,23 @@ public class Computador {
     @JoinColumn(name = "codlaboratorio_fk", nullable = false, updatable = false)
     private Laboratorio laboratorio;
 
+    @OneToMany(mappedBy = "computador")
+    @JsonIgnore
+    private Set<Reclamacao> reclamacoes;
+
 
     public Computador() {
     }
 
 
-    public Computador(Long codcomputador, String patrimonio, Situacao situacao, Laboratorio laboratorio) {
+    public Computador(Long codcomputador, String patrimonio, Situacao situacao, Laboratorio laboratorio, Set<Reclamacao> reclamacoes) {
         this.codcomputador = codcomputador;
         this.patrimonio = patrimonio;
         this.situacao = situacao;
         this.laboratorio = laboratorio;
+        this.reclamacoes = reclamacoes;
     }
+
 
 
     public Long getCodcomputador() {
@@ -91,6 +100,15 @@ public class Computador {
     public void setLaboratorio(Laboratorio laboratorio) {
         this.laboratorio = laboratorio;
     }
+
+    public Set<Reclamacao> getReclamacoes() {
+        return this.reclamacoes;
+    }
+
+    public void setReclamacoes(Set<Reclamacao> reclamacoes) {
+        this.reclamacoes = reclamacoes;
+    }
+
 
     
 }
