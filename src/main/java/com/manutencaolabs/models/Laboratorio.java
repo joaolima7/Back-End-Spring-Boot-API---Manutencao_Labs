@@ -45,7 +45,7 @@ public class Laboratorio {
     @Column(name = "numerolaboratorio", nullable = false, unique = true) 
     //Paramtros no banco de dados antes de criar um novo    
     @NotNull(groups = {CreateLaboratorio.class})
-    private Integer numerolaboratorio;
+    private String numerolaboratorio;
     
     @OneToMany(mappedBy = "laboratorio")
     @JsonIgnore
@@ -59,8 +59,11 @@ public class Laboratorio {
     public Laboratorio() {
     }
 
+    public Laboratorio(Long codlaboratorio){
+        this.codlaboratorio = codlaboratorio;
+    }
 
-    public Laboratorio(Long codlaboratorio, Integer numerolaboratorio, Set<Computador> computadores, Set<Reclamacao> reclamacoesLab) {
+    public Laboratorio(Long codlaboratorio, String numerolaboratorio, Set<Computador> computadores, Set<Reclamacao> reclamacoesLab) {
         this.codlaboratorio = codlaboratorio;
         this.numerolaboratorio = numerolaboratorio;
         this.computadores = computadores;
@@ -76,11 +79,11 @@ public class Laboratorio {
         this.codlaboratorio = codlaboratorio;
     }
 
-    public Integer getNumerolaboratorio() {
+    public String getNumerolaboratorio() {
         return this.numerolaboratorio;
     }
 
-    public void setNumerolaboratorio(Integer numerolaboratorio) {
+    public void setNumerolaboratorio(String numerolaboratorio) {
         this.numerolaboratorio = numerolaboratorio;
     }
 

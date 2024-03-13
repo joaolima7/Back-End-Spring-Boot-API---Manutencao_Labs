@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.manutencaolabs.manutencaolabs.services.ReclamacaoService;
 import com.manutencaolabs.models.Reclamacao;
@@ -38,10 +40,11 @@ public class ReclamacaoController {
         return ResponseEntity.ok().body(reclamacaoes);
     }
 
+    // ESSE METODO É SEM O CAMPO IMAGEM
     @PostMapping("/add")
     @Validated(Reclamacao.CreateReclamacao.class)
     public void create(@Valid @RequestBody Reclamacao obj) {
-        this.reclamacaoService.saveReclamacao(obj);
+    this.reclamacaoService.saveReclamacao(obj);
     }
 
     @DeleteMapping("/del/{id}")
@@ -49,10 +52,19 @@ public class ReclamacaoController {
         this.reclamacaoService.deleteReclamacao(id);
     }
 
+    // ESSE METODO É SEM O CAMPO IMAGEM
     @PutMapping("/update/{id}")
-    public void update(@Valid @RequestBody Reclamacao obj, @PathVariable Long id) {
-        obj.setCodreclamacao(id);
-        this.reclamacaoService.updateReclamacao(obj);
+    public void update(@Valid @RequestBody Reclamacao obj, @PathVariable Long id)
+    {
+    obj.setCodreclamacao(id);
+    this.reclamacaoService.updateReclamacao(obj);
     }
 
+
+    //ESSE METODO É COM IMAGEM
+//     @PostMapping("/add")
+//     @Validated(Reclamacao.CreateReclamacao.class)
+//     public void create(@Valid @RequestBody Reclamacao obj, @RequestParam("imagem") MultipartFile imagem) {
+//         this.reclamacaoService.saveReclamacao(obj, imagem);
+//     }
 }

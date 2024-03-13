@@ -27,6 +27,12 @@ public class ComputadorController {
     @Autowired
     private ComputadorService computadorService;
 
+    @GetMapping("/lab/{codLaboratorio}")
+    public ResponseEntity<List<Computador>> findAllByLaboratorioCodlaboratorio(@PathVariable Long codLaboratorio) {
+      List<Computador> computadores = this.computadorService.findAllByLaboratorioCodlaboratorio(codLaboratorio);
+      return ResponseEntity.ok().body(computadores);
+    }
+
    @GetMapping("/{id}")
     public ResponseEntity<Optional<Computador>> findById(@PathVariable Long id) {
         Optional<Computador> computador = this.computadorService.searchComputadorPorId(id);

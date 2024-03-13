@@ -58,6 +58,10 @@ public class Computador {
     public Computador() {
     }
 
+    public Computador(Long codcomputador){
+        this.codcomputador = codcomputador;
+    }
+
 
     public Computador(Long codcomputador, String patrimonio, Situacao situacao, Laboratorio laboratorio, Set<Reclamacao> reclamacoes) {
         this.codcomputador = codcomputador;

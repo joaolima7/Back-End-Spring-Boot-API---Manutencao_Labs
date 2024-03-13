@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -49,6 +50,10 @@ public class Reclamacao {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataHoraReclamacao;
 
+    // @Lob
+    // @Column(name = "imagem", columnDefinition = "BLOB")
+    // private byte[] imagem;
+
     @ManyToOne
     @JoinColumn(name = "codcomputador_fk", nullable = false, updatable = false)
     private Computador computador;
@@ -59,7 +64,7 @@ public class Reclamacao {
 
     @ManyToOne
     @JoinColumn(name = "codusuario_fk", nullable = false, updatable = false)
-    //@JsonIgnore
+    // @JsonIgnore
     private Usuario usuario;
 
     @OneToOne(mappedBy = "reclamacao")
@@ -73,17 +78,20 @@ public class Reclamacao {
     public Reclamacao() {
     }
 
-    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao,
-            Computador computador, Laboratorio laboratorio, Usuario usuario, Set<Componente> componentes) {
+
+    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao/*, byte[] imagem*/, Computador computador, Laboratorio laboratorio, Usuario usuario, Manutencao manutencao, Set<Componente> componentes) {
         this.codreclamacao = codreclamacao;
         this.descricao = descricao;
         this.status = status;
         this.dataHoraReclamacao = dataHoraReclamacao;
+        //this.imagem = imagem;
         this.computador = computador;
         this.laboratorio = laboratorio;
         this.usuario = usuario;
+        this.manutencao = manutencao;
         this.componentes = componentes;
     }
+
 
     public Long getCodreclamacao() {
         return this.codreclamacao;
@@ -141,6 +149,14 @@ public class Reclamacao {
         this.usuario = usuario;
     }
 
+    public Manutencao getManutencao() {
+        return this.manutencao;
+    }
+
+    public void setManutencao(Manutencao manutencao) {
+        this.manutencao = manutencao;
+    }
+
     public Set<Componente> getComponentes() {
         return this.componentes;
     }
@@ -148,5 +164,13 @@ public class Reclamacao {
     public void setComponentes(Set<Componente> componentes) {
         this.componentes = componentes;
     }
+    
+    // public byte[] getImagem() {
+    //     return this.imagem;
+    // }
+
+    // public void setImagem(byte[] imagem) {
+    //     this.imagem = imagem;
+    // }
 
 }

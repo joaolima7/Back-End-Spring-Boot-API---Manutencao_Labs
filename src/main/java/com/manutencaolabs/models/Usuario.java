@@ -82,6 +82,10 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(Long codusuario){
+        this.codusuario = codusuario;
+    }
+
 
     public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email_usuario, String reset_token, String token, LocalDateTime reset_expires, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes, Set<Reclamacao> reclamacoesUser) {
         this.codusuario = codusuario;

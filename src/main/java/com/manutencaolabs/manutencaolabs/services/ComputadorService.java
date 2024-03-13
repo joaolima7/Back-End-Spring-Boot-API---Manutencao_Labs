@@ -18,6 +18,10 @@ public class ComputadorService {
 
     //Métodos do servço
 
+    public List<Computador> findAllByLaboratorioCodlaboratorio(Long codLaboratorio) {
+        return this.computadorRepository.findByLaboratorio_Codlaboratorio(codLaboratorio);
+      }
+
     public List<Computador> listComputadores() {
         return this.computadorRepository.findAll();
     }
