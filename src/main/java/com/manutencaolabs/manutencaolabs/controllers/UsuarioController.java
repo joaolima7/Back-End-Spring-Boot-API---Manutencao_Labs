@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manutencaolabs.manutencaolabs.services.UsuarioService;
@@ -36,6 +37,16 @@ public class UsuarioController {
     public ResponseEntity<List<Usuario>> findAll() {
         List<Usuario> users = this.usuarioService.listUsuarios();
         return ResponseEntity.ok().body(users);
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<Usuario> login(@RequestParam String login, @RequestParam String senha) {
+        Optional<Usuario> usuario = this.usuarioService.buscarPorLoginESenha(login, senha);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/add")

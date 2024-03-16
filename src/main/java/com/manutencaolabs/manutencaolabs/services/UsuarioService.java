@@ -59,4 +59,8 @@ public class UsuarioService {
         return this.usuarioRepository.save(newObj);
     }
 
+    public Optional<Usuario> buscarPorLoginESenha(String login, String senha) {
+        return this.usuarioRepository.findByLoginAndSenha(login, senha);
+    }
+
 }
