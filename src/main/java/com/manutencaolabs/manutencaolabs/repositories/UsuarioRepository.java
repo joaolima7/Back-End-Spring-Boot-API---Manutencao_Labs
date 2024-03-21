@@ -10,4 +10,5 @@ import com.manutencaolabs.models.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByLoginAndSenha(String login, String senha);
+    Optional<Usuario> findByLogin(String login);
 }

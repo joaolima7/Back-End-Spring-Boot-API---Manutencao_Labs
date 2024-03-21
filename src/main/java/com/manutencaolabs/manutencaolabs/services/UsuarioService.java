@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.manutencaolabs.manutencaolabs.repositories.UsuarioRepository;
 import com.manutencaolabs.models.Usuario;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     // Métodos de Serviços
 
@@ -26,6 +30,12 @@ public class UsuarioService {
     }
 
     public Usuario saveUsuario(Usuario usuario) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        String hashedSenha = encoder.encode(usuario.getSenha());
+
+        usuario.setSenha(hashedSenha);
+
         return this.usuarioRepository.save(usuario);
     }
 
@@ -60,7 +70,13 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> buscarPorLoginESenha(String login, String senha) {
-        return this.usuarioRepository.findByLoginAndSenha(login, senha);
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByLogin(login);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
+                return usuarioOptional;
+            }
+        }
+        return Optional.empty();
     }
-
 }
