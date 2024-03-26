@@ -54,7 +54,7 @@ public class Reclamacao {
     // @Column(name = "imagem", columnDefinition = "BLOB")
     // private byte[] imagem;
 
-    @Column(name = "imagem", nullable = true, columnDefinition = "LONGTEXT")
+    @Column(name = "imagem", nullable = true, length = 150000)
     private String imagem;
 
     @ManyToOne
