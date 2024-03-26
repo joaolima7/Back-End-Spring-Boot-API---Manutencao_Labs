@@ -41,7 +41,7 @@ public class Computador {
     private String patrimonio;
 
 
-    //Chave estrenageira
+    //Chave estrangeira
     @ManyToOne
     @JoinColumn(name = "codsituacao_fk", nullable = false, updatable = false)
     private Situacao situacao;

@@ -54,6 +54,9 @@ public class Reclamacao {
     // @Column(name = "imagem", columnDefinition = "BLOB")
     // private byte[] imagem;
 
+    @Column(name = "imagem", nullable = true, columnDefinition = "LONGTEXT")
+    private String imagem;
+
     @ManyToOne
     @JoinColumn(name = "codcomputador_fk", nullable = false, updatable = false)
     private Computador computador;
@@ -78,13 +81,12 @@ public class Reclamacao {
     public Reclamacao() {
     }
 
-
-    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao/*, byte[] imagem*/, Computador computador, Laboratorio laboratorio, Usuario usuario, Manutencao manutencao, Set<Componente> componentes) {
+    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao, String imagem, Computador computador, Laboratorio laboratorio, Usuario usuario, Manutencao manutencao, Set<Componente> componentes) {
         this.codreclamacao = codreclamacao;
         this.descricao = descricao;
         this.status = status;
         this.dataHoraReclamacao = dataHoraReclamacao;
-        //this.imagem = imagem;
+        this.imagem = imagem;
         this.computador = computador;
         this.laboratorio = laboratorio;
         this.usuario = usuario;
@@ -123,6 +125,14 @@ public class Reclamacao {
 
     public void setDataHoraReclamacao(LocalDateTime dataHoraReclamacao) {
         this.dataHoraReclamacao = dataHoraReclamacao;
+    }
+
+    public String getImagem() {
+        return this.imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public Computador getComputador() {
@@ -164,13 +174,6 @@ public class Reclamacao {
     public void setComponentes(Set<Componente> componentes) {
         this.componentes = componentes;
     }
-    
-    // public byte[] getImagem() {
-    //     return this.imagem;
-    // }
 
-    // public void setImagem(byte[] imagem) {
-    //     this.imagem = imagem;
-    // }
 
 }
