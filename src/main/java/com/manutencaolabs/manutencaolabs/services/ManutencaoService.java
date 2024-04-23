@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.manutencaolabs.manutencaolabs.repositories.ManutencaoRepository;
 import com.manutencaolabs.models.Manutencao;
+import com.manutencaolabs.models.Reclamacao;
 
 @Service
 public class ManutencaoService {
 
     @Autowired
     private ManutencaoRepository manutencaoRepository;
+
+    @Autowired
+    private ReclamacaoService reclamacaoService; //
 
     public List<Manutencao> listManutencoes() {
         return this.manutencaoRepository.findAll();
@@ -24,7 +28,21 @@ public class ManutencaoService {
     }
 
     public Manutencao saveManutencao(Manutencao manutencao) {
-        return this.manutencaoRepository.save(manutencao);
+        // Salvar a manutenção
+        Manutencao savedManutencao = this.manutencaoRepository.save(manutencao);
+
+        // Buscar a reclamação pelo ID fornecido
+        Optional<Reclamacao> optionalReclamacao = reclamacaoService
+                .searchReclamacaoById(manutencao.getReclamacao().getCodreclamacao());
+        if (optionalReclamacao.isPresent()) {
+            Reclamacao reclamacao = optionalReclamacao.get();
+            // Alterar o status da reclamação para "Concluída"
+            reclamacao.setStatus("Concluída");
+            // Salvar a reclamação atualizada
+            reclamacaoService.saveReclamacao(reclamacao);
+        }
+
+        return savedManutencao;
     }
 
     public void deleteManutencao(Long id) {

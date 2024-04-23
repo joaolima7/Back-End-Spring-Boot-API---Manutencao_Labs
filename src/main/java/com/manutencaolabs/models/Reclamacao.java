@@ -44,7 +44,7 @@ public class Reclamacao {
     private String descricao;
 
     @Column(name = "status", nullable = false, length = 20)
-    private String status = "aberta";
+    private String status = "Aberta";
 
     @Column(name = "datahora_reclamacao")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -81,7 +81,9 @@ public class Reclamacao {
     public Reclamacao() {
     }
 
-    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao, String imagem, Computador computador, Laboratorio laboratorio, Usuario usuario, Manutencao manutencao, Set<Componente> componentes) {
+    public Reclamacao(Long codreclamacao, String descricao, String status, LocalDateTime dataHoraReclamacao,
+            String imagem, Computador computador, Laboratorio laboratorio, Usuario usuario, Manutencao manutencao,
+            Set<Componente> componentes) {
         this.codreclamacao = codreclamacao;
         this.descricao = descricao;
         this.status = status;
@@ -93,7 +95,6 @@ public class Reclamacao {
         this.manutencao = manutencao;
         this.componentes = componentes;
     }
-
 
     public Long getCodreclamacao() {
         return this.codreclamacao;
@@ -174,6 +175,5 @@ public class Reclamacao {
     public void setComponentes(Set<Componente> componentes) {
         this.componentes = componentes;
     }
-
 
 }
