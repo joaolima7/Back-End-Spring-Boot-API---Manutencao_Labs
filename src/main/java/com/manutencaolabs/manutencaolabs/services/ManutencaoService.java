@@ -37,7 +37,7 @@ public class ManutencaoService {
         if (optionalReclamacao.isPresent()) {
             Reclamacao reclamacao = optionalReclamacao.get();
             // Alterar o status da reclamação para "Concluída"
-            reclamacao.setStatus("Concluída");
+            reclamacao.setStatus("Concluida");
             // Salvar a reclamação atualizada
             reclamacaoService.saveReclamacao(reclamacao);
         }
