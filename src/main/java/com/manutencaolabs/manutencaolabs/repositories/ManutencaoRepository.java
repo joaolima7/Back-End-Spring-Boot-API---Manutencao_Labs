@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.manutencaolabs.models.Manutencao;
 
 @Repository
-public interface ManutencaoRepository extends JpaRepository<Manutencao, Long>{
-    
+public interface ManutencaoRepository extends JpaRepository<Manutencao, Long> {
+    Manutencao findByReclamacaoCodreclamacao(Long codreclamacao);
 }

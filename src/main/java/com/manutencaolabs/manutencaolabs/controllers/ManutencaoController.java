@@ -53,4 +53,10 @@ public class ManutencaoController {
         this.manutencaoService.updateManutencao(obj);
     }
 
+    @GetMapping("/reclamacao/{codreclamacao}")
+    public ResponseEntity<Manutencao> buscarManutencaoPorReclamacao(@PathVariable Long codreclamacao) {
+        Manutencao manutencao = manutencaoService.buscarManutencaoPorReclamacao(codreclamacao);
+        return ResponseEntity.ok().body(manutencao);
+    }
+
 }

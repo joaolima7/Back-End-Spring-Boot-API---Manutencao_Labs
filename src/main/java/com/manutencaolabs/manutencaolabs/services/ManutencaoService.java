@@ -71,4 +71,8 @@ public class ManutencaoService {
         return this.manutencaoRepository.save(newObj);
     }
 
+    public Manutencao buscarManutencaoPorReclamacao(Long codreclamacao) {
+        return manutencaoRepository.findByReclamacaoCodreclamacao(codreclamacao);
+    }
+
 }
