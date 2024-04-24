@@ -27,7 +27,7 @@ public class ReclamacaoService {
 
     // ESSE METODO ABAIXO É SEM CAMPO IMAGEM NO BANCO
     public Reclamacao saveReclamacao(Reclamacao reclamacao) {
-    return this.reclamacaoRepository.save(reclamacao);
+        return this.reclamacaoRepository.save(reclamacao);
     }
 
     public void deleteReclamacao(Long id) {
@@ -45,54 +45,58 @@ public class ReclamacaoService {
 
     // ESSE METODO ABAIXO É SEM CAMPO IMAGEM NO BANCO
     public Reclamacao updateReclamacao(Reclamacao reclamacao) {
-    Reclamacao newObj =
-    this.reclamacaoRepository.findById(reclamacao.getCodreclamacao())
-    .orElseThrow(() -> new RuntimeException("Reclamação não encontrada!"));
-    // Atualize os campos necessários
-    newObj.setDescricao(reclamacao.getDescricao());
-    newObj.setStatus(reclamacao.getStatus());
-    newObj.setDataHoraReclamacao(reclamacao.getDataHoraReclamacao());
-    newObj.setComputador(reclamacao.getComputador());
-    newObj.setLaboratorio(reclamacao.getLaboratorio());
-    newObj.setUsuario(reclamacao.getUsuario());
+        Reclamacao newObj = this.reclamacaoRepository.findById(reclamacao.getCodreclamacao())
+                .orElseThrow(() -> new RuntimeException("Reclamação não encontrada!"));
+        // Atualize os campos necessários
+        newObj.setDescricao(reclamacao.getDescricao());
+        newObj.setStatus(reclamacao.getStatus());
+        newObj.setDataHoraReclamacao(reclamacao.getDataHoraReclamacao());
+        newObj.setComputador(reclamacao.getComputador());
+        newObj.setLaboratorio(reclamacao.getLaboratorio());
+        newObj.setUsuario(reclamacao.getUsuario());
 
-    return this.reclamacaoRepository.save(newObj);
+        return this.reclamacaoRepository.save(newObj);
     }
 
+    public List<Reclamacao> buscarReclamacoesPorUsuario(Long codusuario) {
+        return reclamacaoRepository.findByUsuarioCodusuario(codusuario);
+    }
 
-
-    //ESSES METODOS É COM CAMPO IMAGEM
-    // public Reclamacao saveReclamacao(Reclamacao reclamacao, MultipartFile imagem) {
-    //     // Converta a imagem para bytes e atribua ao campo
-    //     try {
-    //         reclamacao.setImagem(imagem.getBytes());
-    //     } catch (IOException e) {
-    //         // Lide com a exceção, se necessário
-    //     }
-    //     return this.reclamacaoRepository.save(reclamacao);
+    // ESSES METODOS É COM CAMPO IMAGEM
+    // public Reclamacao saveReclamacao(Reclamacao reclamacao, MultipartFile imagem)
+    // {
+    // // Converta a imagem para bytes e atribua ao campo
+    // try {
+    // reclamacao.setImagem(imagem.getBytes());
+    // } catch (IOException e) {
+    // // Lide com a exceção, se necessário
+    // }
+    // return this.reclamacaoRepository.save(reclamacao);
     // }
 
-    // public Reclamacao updateReclamacao(Reclamacao reclamacao, MultipartFile imagem) {
-    //     Reclamacao newObj = this.reclamacaoRepository.findById(reclamacao.getCodreclamacao())
-    //             .orElseThrow(() -> new RuntimeException("Reclamação não encontrada!"));
+    // public Reclamacao updateReclamacao(Reclamacao reclamacao, MultipartFile
+    // imagem) {
+    // Reclamacao newObj =
+    // this.reclamacaoRepository.findById(reclamacao.getCodreclamacao())
+    // .orElseThrow(() -> new RuntimeException("Reclamação não encontrada!"));
 
-    //     // Atualize os campos necessários
-    //     newObj.setDescricao(reclamacao.getDescricao());
-    //     newObj.setStatus(reclamacao.getStatus());
-    //     newObj.setDataHoraReclamacao(reclamacao.getDataHoraReclamacao());
-    //     newObj.setComputador(reclamacao.getComputador());
-    //     newObj.setLaboratorio(reclamacao.getLaboratorio());
-    //     newObj.setUsuario(reclamacao.getUsuario());
+    // // Atualize os campos necessários
+    // newObj.setDescricao(reclamacao.getDescricao());
+    // newObj.setStatus(reclamacao.getStatus());
+    // newObj.setDataHoraReclamacao(reclamacao.getDataHoraReclamacao());
+    // newObj.setComputador(reclamacao.getComputador());
+    // newObj.setLaboratorio(reclamacao.getLaboratorio());
+    // newObj.setUsuario(reclamacao.getUsuario());
 
-    //     // Converta a imagem para bytes e atribua ao campo
-    //     try {
-    //         newObj.setImagem(imagem.getBytes());
-    //     } catch (IOException e) {
-    //         // Lide com a exceção, se necessário
-    //     }
+    // // Converta a imagem para bytes e atribua ao campo
+    // try {
+    // newObj.setImagem(imagem.getBytes());
+    // } catch (IOException e) {
+    // // Lide com a exceção, se necessário
+    // }
 
-    //     // Adicione mais campos conforme necessário
+    // // Adicione mais campos conforme necessário
 
-    //     return this.reclamacaoRepository.save(newObj);
+    // return this.reclamacaoRepository.save(newObj);
     // }
 }

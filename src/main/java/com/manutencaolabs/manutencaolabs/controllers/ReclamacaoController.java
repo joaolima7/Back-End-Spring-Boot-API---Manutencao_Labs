@@ -44,7 +44,7 @@ public class ReclamacaoController {
     @PostMapping("/add")
     @Validated(Reclamacao.CreateReclamacao.class)
     public void create(@Valid @RequestBody Reclamacao obj) {
-    this.reclamacaoService.saveReclamacao(obj);
+        this.reclamacaoService.saveReclamacao(obj);
     }
 
     @DeleteMapping("/del/{id}")
@@ -54,17 +54,22 @@ public class ReclamacaoController {
 
     // ESSE METODO É SEM O CAMPO IMAGEM
     @PutMapping("/update/{id}")
-    public void update(@Valid @RequestBody Reclamacao obj, @PathVariable Long id)
-    {
-    obj.setCodreclamacao(id);
-    this.reclamacaoService.updateReclamacao(obj);
+    public void update(@Valid @RequestBody Reclamacao obj, @PathVariable Long id) {
+        obj.setCodreclamacao(id);
+        this.reclamacaoService.updateReclamacao(obj);
     }
 
+    @GetMapping("/usuario/{codusuario}")
+    public ResponseEntity<List<Reclamacao>> buscarReclamacoesPorUsuario(@PathVariable Long codusuario) {
+        List<Reclamacao> reclamacoes = reclamacaoService.buscarReclamacoesPorUsuario(codusuario);
+        return ResponseEntity.ok().body(reclamacoes);
+    }
 
-    //ESSE METODO É COM IMAGEM
-//     @PostMapping("/add")
-//     @Validated(Reclamacao.CreateReclamacao.class)
-//     public void create(@Valid @RequestBody Reclamacao obj, @RequestParam("imagem") MultipartFile imagem) {
-//         this.reclamacaoService.saveReclamacao(obj, imagem);
-//     }
+    // ESSE METODO É COM IMAGEM
+    // @PostMapping("/add")
+    // @Validated(Reclamacao.CreateReclamacao.class)
+    // public void create(@Valid @RequestBody Reclamacao obj,
+    // @RequestParam("imagem") MultipartFile imagem) {
+    // this.reclamacaoService.saveReclamacao(obj, imagem);
+    // }
 }
