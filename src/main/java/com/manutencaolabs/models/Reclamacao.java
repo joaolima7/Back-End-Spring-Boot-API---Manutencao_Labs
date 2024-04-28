@@ -17,6 +17,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -50,10 +51,6 @@ public class Reclamacao {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataHoraReclamacao;
 
-    // @Lob
-    // @Column(name = "imagem", columnDefinition = "BLOB")
-    // private byte[] imagem;
-
     @Column(name = "imagem", nullable = true, length = 150000)
     private String imagem;
 
@@ -67,7 +64,6 @@ public class Reclamacao {
 
     @ManyToOne
     @JoinColumn(name = "codusuario_fk", nullable = false, updatable = false)
-    // @JsonIgnore
     private Usuario usuario;
 
     @OneToOne(mappedBy = "reclamacao")
@@ -124,8 +120,9 @@ public class Reclamacao {
         return this.dataHoraReclamacao;
     }
 
-    public void setDataHoraReclamacao(LocalDateTime dataHoraReclamacao) {
-        this.dataHoraReclamacao = dataHoraReclamacao;
+    @PrePersist
+    public void setDataHoraReclamacao() {
+        this.dataHoraReclamacao = LocalDateTime.now();
     }
 
     public String getImagem() {

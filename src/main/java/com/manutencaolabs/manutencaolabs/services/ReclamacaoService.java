@@ -50,7 +50,6 @@ public class ReclamacaoService {
         // Atualize os campos necessários
         newObj.setDescricao(reclamacao.getDescricao());
         newObj.setStatus(reclamacao.getStatus());
-        newObj.setDataHoraReclamacao(reclamacao.getDataHoraReclamacao());
         newObj.setComputador(reclamacao.getComputador());
         newObj.setLaboratorio(reclamacao.getLaboratorio());
         newObj.setUsuario(reclamacao.getUsuario());
