@@ -47,7 +47,7 @@ public class Reclamacao {
     private String status = "Aberta";
 
     @Column(name = "datahora_reclamacao")
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataHoraReclamacao;
 
     @Column(name = "imagem", nullable = true, length = 150000)
