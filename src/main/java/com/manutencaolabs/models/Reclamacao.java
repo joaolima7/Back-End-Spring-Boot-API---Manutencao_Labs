@@ -17,7 +17,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -120,9 +119,8 @@ public class Reclamacao {
         return this.dataHoraReclamacao;
     }
 
-    @PrePersist
-    public void setDataHoraReclamacao() {
-        this.dataHoraReclamacao = LocalDateTime.now();
+    public void setDataHoraReclamacao(LocalDateTime dataHoraReclamacao) {
+        this.dataHoraReclamacao = dataHoraReclamacao;
     }
 
     public String getImagem() {
