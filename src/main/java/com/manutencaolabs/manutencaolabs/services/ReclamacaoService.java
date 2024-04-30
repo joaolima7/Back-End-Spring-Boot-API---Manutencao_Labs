@@ -1,21 +1,26 @@
 package com.manutencaolabs.manutencaolabs.services;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.manutencaolabs.manutencaolabs.repositories.ReclamacaoRepository;
+import com.manutencaolabs.models.Computador;
 import com.manutencaolabs.models.Reclamacao;
+import com.manutencaolabs.models.Situacao;
 
 @Service
 public class ReclamacaoService {
 
     @Autowired
     private ReclamacaoRepository reclamacaoRepository;
+
+    @Autowired
+    private ComputadorService computadorService;
+
+    @Autowired
+    private SituacaoService situacaoService;
 
     public List<Reclamacao> listReclamacoes() {
         return this.reclamacaoRepository.findAll();
@@ -27,7 +32,22 @@ public class ReclamacaoService {
 
     // ESSE METODO ABAIXO É SEM CAMPO IMAGEM NO BANCO
     public Reclamacao saveReclamacao(Reclamacao reclamacao) {
-        return this.reclamacaoRepository.save(reclamacao);
+        Reclamacao reclamation = this.reclamacaoRepository.save(reclamacao);
+
+        Optional<Situacao> optionalSituacao = situacaoService.findByTipoSituacao("Em manutencao");
+        if (optionalSituacao.isPresent()) {
+            Situacao situacao = optionalSituacao.get();
+            Optional<Computador> optionalComputador = computadorService
+                    .searchComputadorPorId(reclamacao.getComputador().getCodcomputador());
+
+            if (optionalComputador.isPresent()) {
+                Computador computer = optionalComputador.get();
+                computer.setSituacao(situacao);
+                computadorService.updateComputador(computer);
+            }
+        }
+
+        return reclamation;
     }
 
     public void deleteReclamacao(Long id) {

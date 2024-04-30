@@ -40,10 +40,9 @@ public class Computador {
     @NotEmpty(groups = { CreateComponente.class, UpdateComponente.class })
     private String patrimonio;
 
-
-    //Chave estrangeira
+    // Chave estrangeira
     @ManyToOne
-    @JoinColumn(name = "codsituacao_fk", nullable = false, updatable = false)
+    @JoinColumn(name = "codsituacao_fk", nullable = false)
     private Situacao situacao;
 
     @ManyToOne
@@ -54,24 +53,21 @@ public class Computador {
     @JsonIgnore
     private Set<Reclamacao> reclamacoes;
 
-
     public Computador() {
     }
 
-    public Computador(Long codcomputador){
+    public Computador(Long codcomputador) {
         this.codcomputador = codcomputador;
     }
 
-
-    public Computador(Long codcomputador, String patrimonio, Situacao situacao, Laboratorio laboratorio, Set<Reclamacao> reclamacoes) {
+    public Computador(Long codcomputador, String patrimonio, Situacao situacao, Laboratorio laboratorio,
+            Set<Reclamacao> reclamacoes) {
         this.codcomputador = codcomputador;
         this.patrimonio = patrimonio;
         this.situacao = situacao;
         this.laboratorio = laboratorio;
         this.reclamacoes = reclamacoes;
     }
-
-
 
     public Long getCodcomputador() {
         return this.codcomputador;
@@ -113,6 +109,4 @@ public class Computador {
         this.reclamacoes = reclamacoes;
     }
 
-
-    
 }

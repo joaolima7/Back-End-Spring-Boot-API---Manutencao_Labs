@@ -52,4 +52,8 @@ public class SituacaoService {
         return this.situacaoRepository.save(newObj);
     }
 
+    public Optional<Situacao> findByTipoSituacao(String tipoSituacao) {
+        return situacaoRepository.findByTiposituacao(tipoSituacao);
+    }
+
 }

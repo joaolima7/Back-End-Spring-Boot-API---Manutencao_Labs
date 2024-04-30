@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manutencaolabs.manutencaolabs.repositories.ManutencaoRepository;
+import com.manutencaolabs.models.Computador;
 import com.manutencaolabs.models.Manutencao;
 import com.manutencaolabs.models.Reclamacao;
+import com.manutencaolabs.models.Situacao;
 
 @Service
 public class ManutencaoService {
@@ -17,7 +19,13 @@ public class ManutencaoService {
     private ManutencaoRepository manutencaoRepository;
 
     @Autowired
-    private ReclamacaoService reclamacaoService; //
+    private ReclamacaoService reclamacaoService;
+
+    @Autowired
+    private ComputadorService computadorService;
+
+    @Autowired
+    private SituacaoService situacaoService;
 
     public List<Manutencao> listManutencoes() {
         return this.manutencaoRepository.findAll();
@@ -31,15 +39,23 @@ public class ManutencaoService {
         // Salvar a manutenção
         Manutencao savedManutencao = this.manutencaoRepository.save(manutencao);
 
-        // Buscar a reclamação pelo ID fornecido
+        // Alterar status da Reclamacao
         Optional<Reclamacao> optionalReclamacao = reclamacaoService
                 .searchReclamacaoById(manutencao.getReclamacao().getCodreclamacao());
-        if (optionalReclamacao.isPresent()) {
-            Reclamacao reclamacao = optionalReclamacao.get();
-            // Alterar o status da reclamação para "Concluída"
-            reclamacao.setStatus("Concluida");
-            // Salvar a reclamação atualizada
-            reclamacaoService.saveReclamacao(reclamacao);
+        Reclamacao reclamacao = optionalReclamacao.get(); // Alterar o status da reclamação para "Concluída"
+        reclamacao.setStatus("Concluida");
+        // Salvar a reclamação atualizada
+        reclamacaoService.saveReclamacao(reclamacao);
+
+        // Atualizar situacao do computador
+        Optional<Computador> optComputador = computadorService
+                .searchComputadorPorId(reclamacao.getComputador().getCodcomputador());
+        Optional<Situacao> optSituacao = situacaoService.findByTipoSituacao("Disponivel");
+        if (optSituacao.isPresent()) {
+            Situacao situacao = optSituacao.get();
+            Computador comp = optComputador.get();
+            comp.setSituacao(situacao);
+            computadorService.updateComputador(comp);
         }
 
         return savedManutencao;

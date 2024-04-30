@@ -1,6 +1,5 @@
 package com.manutencaolabs.manutencaolabs.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,11 +28,11 @@ public class ComputadorController {
 
     @GetMapping("/lab/{codLaboratorio}")
     public ResponseEntity<List<Computador>> findAllByLaboratorioCodlaboratorio(@PathVariable Long codLaboratorio) {
-      List<Computador> computadores = this.computadorService.findAllByLaboratorioCodlaboratorio(codLaboratorio);
-      return ResponseEntity.ok().body(computadores);
+        List<Computador> computadores = this.computadorService.findAllByLaboratorioCodlaboratorio(codLaboratorio);
+        return ResponseEntity.ok().body(computadores);
     }
 
-   @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Computador>> findById(@PathVariable Long id) {
         Optional<Computador> computador = this.computadorService.searchComputadorPorId(id);
         return ResponseEntity.ok().body(computador);
@@ -48,18 +47,18 @@ public class ComputadorController {
     @PostMapping("/add")
     @Validated(Computador.CreateComputador.class)
     public void create(@Valid @RequestBody Computador obj) {
-           this.computadorService.saveComputador(obj);
+        this.computadorService.saveComputador(obj);
     }
 
     @DeleteMapping("/del/{id}")
     public void delete(@PathVariable Long id) {
-            this.computadorService.deleteComputador(id);
+        this.computadorService.deleteComputador(id);
     }
 
-    @PutMapping("/{id}")
-    public void update (@Valid @RequestBody Computador obj, @PathVariable Long id){
+    @PutMapping("/update/{id}")
+    public void update(@Valid @RequestBody Computador obj, @PathVariable Long id) {
         obj.setCodcomputador(id);
         this.computadorService.updateComputador(obj);
     }
-    
+
 }
