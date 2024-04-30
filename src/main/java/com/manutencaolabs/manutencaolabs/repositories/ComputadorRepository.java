@@ -9,5 +9,5 @@ import com.manutencaolabs.models.Computador;
 
 @Repository
 public interface ComputadorRepository extends JpaRepository<Computador, Long> {
-    List<Computador> findByLaboratorio_CodlaboratorioOrderByPatrimonioAsc(Long codlaboratorio);
+    List<Computador> findByLaboratorio_CodlaboratorioOrderByCodcomputadorAsc(Long codlaboratorio);
 }

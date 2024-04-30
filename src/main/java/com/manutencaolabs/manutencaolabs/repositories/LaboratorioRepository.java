@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.manutencaolabs.models.Laboratorio;
 
 @Repository
-public interface LaboratorioRepository extends JpaRepository<Laboratorio, Long>{
-    
+public interface LaboratorioRepository extends JpaRepository<Laboratorio, Long> {
 }

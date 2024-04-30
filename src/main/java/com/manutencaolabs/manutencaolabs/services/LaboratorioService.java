@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.manutencaolabs.manutencaolabs.repositories.LaboratorioRepository;
@@ -12,18 +13,18 @@ import com.manutencaolabs.models.Laboratorio;
 @Service
 public class LaboratorioService {
 
-    //Instacia com constructor Autowired
+    // Instacia com constructor Autowired
     @Autowired
     private LaboratorioRepository laboratorioRepository;
 
-
-        // Métodos de Serviço
+    // Métodos de Serviço
 
     public List<Laboratorio> listLaboratorios() {
-        return laboratorioRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.ASC, "numerolaboratorio");
+        return laboratorioRepository.findAll(sort);
     }
 
-    //Procurar dado pelo ID.
+    // Procurar dado pelo ID.
     public Optional<Laboratorio> findById(Long id) {
         return laboratorioRepository.findById(id);
     }
@@ -37,12 +38,12 @@ public class LaboratorioService {
     }
 
     public Laboratorio createLaboratorio(Laboratorio laboratorio) {
-        //Zera o Id pra confirmar que vai criar um novo dado em vez de atualizar outro
+        // Zera o Id pra confirmar que vai criar um novo dado em vez de atualizar outro
         laboratorio.setCodlaboratorio(null);
         return laboratorioRepository.save(laboratorio);
     }
-  
-    //Não usada nessa Tabela, somente para aprendizado.
+
+    // Não usada nessa Tabela, somente para aprendizado.
     public Laboratorio updateLaboratorio(Laboratorio laboratorio) {
         // Verifica se o laboratório existe pelo ID
         Laboratorio existingLaboratorio = laboratorioRepository.findById(laboratorio.getCodlaboratorio())
