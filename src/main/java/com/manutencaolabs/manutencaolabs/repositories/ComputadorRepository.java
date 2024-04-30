@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.manutencaolabs.models.Computador;
 
 @Repository
-public interface ComputadorRepository extends JpaRepository<Computador, Long>{
-    List<Computador> findByLaboratorio_Codlaboratorio (Long codlaboratorio);
+public interface ComputadorRepository extends JpaRepository<Computador, Long> {
+    List<Computador> findByLaboratorio_CodlaboratorioOrderByPatrimonioAsc(Long codlaboratorio);
 }

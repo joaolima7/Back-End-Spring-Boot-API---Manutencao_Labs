@@ -9,18 +9,17 @@ import org.springframework.stereotype.Service;
 import com.manutencaolabs.manutencaolabs.repositories.ComputadorRepository;
 import com.manutencaolabs.models.Computador;
 
-
 @Service
 public class ComputadorService {
-    
+
     @Autowired
     private ComputadorRepository computadorRepository;
 
-    //Métodos do servço
+    // Métodos do servço
 
     public List<Computador> findAllByLaboratorioCodlaboratorio(Long codLaboratorio) {
-        return this.computadorRepository.findByLaboratorio_Codlaboratorio(codLaboratorio);
-      }
+        return this.computadorRepository.findByLaboratorio_CodlaboratorioOrderByPatrimonioAsc(codLaboratorio);
+    }
 
     public List<Computador> listComputadores() {
         return this.computadorRepository.findAll();
@@ -40,7 +39,7 @@ public class ComputadorService {
         } catch (Exception e) {
             throw new RuntimeException("Não foi possível Excluir!");
         }
-    }   
+    }
 
     public Computador createComputador(Computador computador) {
         computador.setCodcomputador(null);
