@@ -24,7 +24,6 @@ public class LaboratorioService {
         return laboratorioRepository.findAll(sort);
     }
 
-    // Procurar dado pelo ID.
     public Optional<Laboratorio> findById(Long id) {
         return laboratorioRepository.findById(id);
     }

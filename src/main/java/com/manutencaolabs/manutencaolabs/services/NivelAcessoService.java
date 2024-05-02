@@ -46,10 +46,14 @@ public class NivelAcessoService {
         NivelAcesso newObj = this.nivelAcessoRepository.findById(nivelAcesso.getCodnivel_acesso())
                 .orElseThrow(() -> new RuntimeException("Nível de Acesso não encontrado!"));
         // Atualize os campos necessários
-        newObj.setTipo_acesso(nivelAcesso.getTipo_acesso());
+        newObj.setTipoAcesso(nivelAcesso.getTipoAcesso());
         // Adicione mais campos conforme necessário
 
         return this.nivelAcessoRepository.save(newObj);
+    }
+
+    public Optional<NivelAcesso> searchNivelAcessoPorTipoAcesso(String tipoAcesso) {
+        return this.nivelAcessoRepository.findByTipoAcesso(tipoAcesso);
     }
 
 }

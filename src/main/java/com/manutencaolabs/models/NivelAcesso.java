@@ -33,9 +33,9 @@ public class NivelAcesso {
     @Column(name = "codnivel_acesso")
     private Long codnivel_acesso;
 
-    @Column(name = "tipo_acesso", nullable = false)
-    private String tipo_acesso;
-    
+    @Column(name = "tipoAcesso", nullable = false)
+    private String tipoAcesso;
+
     @OneToMany(mappedBy = "nivelAcesso")
     @JsonIgnore
     private Set<Usuario> usuarios;
@@ -43,13 +43,11 @@ public class NivelAcesso {
     public NivelAcesso() {
     }
 
-
-    public NivelAcesso(Long codnivel_acesso, String tipo_acesso, Set<Usuario> usuarios) {
+    public NivelAcesso(Long codnivel_acesso, String tipoAcesso, Set<Usuario> usuarios) {
         this.codnivel_acesso = codnivel_acesso;
-        this.tipo_acesso = tipo_acesso;
+        this.tipoAcesso = tipoAcesso;
         this.usuarios = usuarios;
     }
-
 
     public Long getCodnivel_acesso() {
         return this.codnivel_acesso;
@@ -59,12 +57,12 @@ public class NivelAcesso {
         this.codnivel_acesso = codnivel_acesso;
     }
 
-    public String getTipo_acesso() {
-        return this.tipo_acesso;
+    public String getTipoAcesso() {
+        return this.tipoAcesso;
     }
 
-    public void setTipo_acesso(String tipo_acesso) {
-        this.tipo_acesso = tipo_acesso;
+    public void setTipoAcesso(String tipoAcesso) {
+        this.tipoAcesso = tipoAcesso;
     }
 
     public Set<Usuario> getUsuarios() {

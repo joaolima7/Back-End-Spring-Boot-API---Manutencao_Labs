@@ -56,4 +56,14 @@ public class NivelAcessoController {
         this.nivelAcessoService.updateNivelAcesso(obj);
     }
 
+    @GetMapping("/tipoacesso/{tipoAcesso}")
+    public ResponseEntity<Optional<NivelAcesso>> findByTipoAcesso(@PathVariable String tipoAcesso) {
+        Optional<NivelAcesso> na = this.nivelAcessoService.searchNivelAcessoPorTipoAcesso(tipoAcesso);
+        if (na.isPresent()) {
+            return ResponseEntity.ok().body(na);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
