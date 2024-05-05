@@ -47,7 +47,6 @@ public class ManutencaoService {
         // Salvar a reclamação atualizada
         reclamacaoService.saveReclamacao(reclamacao);
 
-        // Atualizar situacao do computador
         Optional<Computador> optComputador = computadorService
                 .searchComputadorPorId(reclamacao.getComputador().getCodcomputador());
         Optional<Situacao> optSituacao = situacaoService.findByTipoSituacao("Disponivel");

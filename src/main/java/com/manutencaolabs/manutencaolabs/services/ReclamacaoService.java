@@ -52,6 +52,19 @@ public class ReclamacaoService {
 
     public void deleteReclamacao(Long id) {
         try {
+            Optional<Reclamacao> rec = searchReclamacaoById(id);
+            if (rec.isPresent()) {
+                Reclamacao reclamacao = rec.get();
+                Optional<Computador> optComputador = computadorService
+                        .searchComputadorPorId(reclamacao.getComputador().getCodcomputador());
+                Optional<Situacao> optSituacao = situacaoService.findByTipoSituacao("Disponivel");
+                if (optSituacao.isPresent()) {
+                    Situacao situacao = optSituacao.get();
+                    Computador comp = optComputador.get();
+                    comp.setSituacao(situacao);
+                    computadorService.updateComputador(comp);
+                }
+            }
             this.reclamacaoRepository.deleteById(id);
         } catch (Exception e) {
             throw new RuntimeException("Não foi possível Excluir!");
