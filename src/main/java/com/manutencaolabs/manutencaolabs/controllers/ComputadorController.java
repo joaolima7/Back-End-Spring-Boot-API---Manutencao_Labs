@@ -61,4 +61,9 @@ public class ComputadorController {
         this.computadorService.updateComputador(obj);
     }
 
+    @PutMapping("/updatesit/{id}")
+    public void updateCompSit(@PathVariable Long id) {
+        this.computadorService.updateComputadorSituacaoDisponivel(id);
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.manutencaolabs.manutencaolabs.repositories.ComputadorRepository;
 import com.manutencaolabs.models.Computador;
+import com.manutencaolabs.models.Situacao;
 
 @Service
 public class ComputadorService {
@@ -15,7 +16,8 @@ public class ComputadorService {
     @Autowired
     private ComputadorRepository computadorRepository;
 
-    // Métodos do servço
+    @Autowired
+    private SituacaoService situacaoService;
 
     public List<Computador> findAllByLaboratorioCodlaboratorio(Long codLaboratorio) {
         return this.computadorRepository.findByLaboratorio_CodlaboratorioOrderByCodcomputadorAsc(codLaboratorio);
@@ -56,5 +58,16 @@ public class ComputadorService {
         // Adicione mais campos conforme necessário
 
         return this.computadorRepository.save(newObj);
+    }
+
+    public void updateComputadorSituacaoDisponivel(Long id) {
+        Computador newObj = this.computadorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Computador não encontrado!"));
+        Optional<Situacao> optSituacao = situacaoService.findByTipoSituacao("Disponivel");
+        if (optSituacao.isPresent()) {
+            Situacao situacao = optSituacao.get();
+            newObj.setSituacao(situacao);
+            this.computadorRepository.save(newObj);
+        }
     }
 }
