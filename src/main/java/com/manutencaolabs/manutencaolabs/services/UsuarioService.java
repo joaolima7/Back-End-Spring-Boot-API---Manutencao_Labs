@@ -59,7 +59,7 @@ public class UsuarioService {
         newObj.setLogin(usuario.getLogin());
         newObj.setSenha(usuario.getSenha());
         newObj.setNome_usuario(usuario.getNome_usuario());
-        newObj.setEmail_usuario(usuario.getEmail_usuario());
+        newObj.setEmail(usuario.getEmail());
         newObj.setReset_token(usuario.getReset_token());
         newObj.setToken(usuario.getToken());
         newObj.setReset_expires(usuario.getReset_expires());
@@ -78,5 +78,9 @@ public class UsuarioService {
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return this.usuarioRepository.findByEmail(email);
     }
 }

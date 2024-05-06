@@ -3,7 +3,6 @@ package com.manutencaolabs.manutencaolabs.controllers;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +30,12 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Usuario>> findById(@PathVariable Long id) {
         Optional<Usuario> user = this.usuarioService.searchUsuarioById(id);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Optional<Usuario>> findByEmail(@PathVariable String email) {
+        Optional<Usuario> user = this.usuarioService.buscarPorEmail(email);
         return ResponseEntity.ok().body(user);
     }
 

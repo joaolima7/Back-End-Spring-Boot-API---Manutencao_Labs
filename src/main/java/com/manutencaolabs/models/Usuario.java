@@ -58,8 +58,8 @@ public class Usuario {
     @Column(name = "nome_usuario", nullable = true, unique = true)
     private String nome_usuario;
 
-    @Column(name = "email_usuario", nullable = true, unique = true)
-    private String email_usuario;
+    @Column(name = "email", nullable = true, unique = true)
+    private String email;
 
     @Column(name = "reset_token", nullable = true)
     private String reset_token;
@@ -86,17 +86,18 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long codusuario){
+    public Usuario(Long codusuario) {
         this.codusuario = codusuario;
     }
 
-
-    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email_usuario, String reset_token, String token, LocalDateTime reset_expires, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes, Set<Reclamacao> reclamacoesUser) {
+    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email, String reset_token,
+            String token, LocalDateTime reset_expires, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes,
+            Set<Reclamacao> reclamacoesUser) {
         this.codusuario = codusuario;
         this.login = login;
         this.senha = senha;
         this.nome_usuario = nome_usuario;
-        this.email_usuario = email_usuario;
+        this.email = email;
         this.reset_token = reset_token;
         this.token = token;
         this.reset_expires = reset_expires;
@@ -104,7 +105,6 @@ public class Usuario {
         this.manutencoes = manutencoes;
         this.reclamacoesUser = reclamacoesUser;
     }
-
 
     public Long getCodusuario() {
         return this.codusuario;
@@ -138,12 +138,12 @@ public class Usuario {
         this.nome_usuario = nome_usuario;
     }
 
-    public String getEmail_usuario() {
-        return this.email_usuario;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setEmail_usuario(String email_usuario) {
-        this.email_usuario = email_usuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getReset_token() {
@@ -194,41 +194,40 @@ public class Usuario {
         this.reclamacoesUser = reclamacoesUser;
     }
 
-
-
     // @Override
     // public Collection<? extends GrantedAuthority> getAuthorities() {
-    //     throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    // throw new UnsupportedOperationException("Unimplemented method
+    // 'getAuthorities'");
     // }
 
     // @Override
     // public String getPassword() {
-    //     return senha;
+    // return senha;
     // }
 
     // @Override
     // public String getUsername() {
-    //     return login;
+    // return login;
     // }
 
     // @Override
     // public boolean isAccountNonExpired() {
-    //     return true;
+    // return true;
     // }
 
     // @Override
     // public boolean isAccountNonLocked() {
-    //     return true;
+    // return true;
     // }
 
     // @Override
     // public boolean isCredentialsNonExpired() {
-    //     return true;
+    // return true;
     // }
 
     // @Override
     // public boolean isEnabled() {
-    //     return true;
+    // return true;
     // }
-    
+
 }
