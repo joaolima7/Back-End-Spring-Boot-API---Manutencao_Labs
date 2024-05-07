@@ -41,8 +41,8 @@ public class Usuario {
     @NotEmpty(groups = { CreateUsuario.class, UpdateUsuario.class })
     private String senha;
 
-    @Column(name = "nome_usuario", nullable = true, unique = true)
-    private String nome_usuario;
+    @Column(name = "nome", nullable = true, unique = true)
+    private String nome;
 
     @Column(name = "email", nullable = true, unique = true)
     private String email;
@@ -69,13 +69,13 @@ public class Usuario {
         this.codusuario = codusuario;
     }
 
-    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email,
+    public Usuario(Long codusuario, String login, String senha, String nome, String email,
             String token, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes,
             Set<Reclamacao> reclamacoesUser) {
         this.codusuario = codusuario;
         this.login = login;
         this.senha = senha;
-        this.nome_usuario = nome_usuario;
+        this.nome = nome;
         this.email = email;
         this.token = token;
         this.nivelAcesso = nivelAcesso;
@@ -107,12 +107,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getNome_usuario() {
-        return this.nome_usuario;
+    public String getNome() {
+        return this.nome;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {

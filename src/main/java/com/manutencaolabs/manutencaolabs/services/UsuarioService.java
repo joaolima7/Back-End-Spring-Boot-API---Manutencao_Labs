@@ -37,11 +37,6 @@ public class UsuarioService {
         return null;
     }
 
-    private String generateRandomToken() {
-        Random rand = new Random();
-        return String.format("%05d", rand.nextInt(100000));
-    }
-
     public Usuario saveUsuario(Usuario usuario) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -70,7 +65,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
         newObj.setLogin(usuario.getLogin());
         newObj.setSenha(usuario.getSenha());
-        newObj.setNome_usuario(usuario.getNome_usuario());
+        newObj.setNome(usuario.getNome());
         newObj.setEmail(usuario.getEmail());
         newObj.setToken(usuario.getToken());
         newObj.setNivelAcesso(usuario.getNivelAcesso());
@@ -89,7 +84,28 @@ public class UsuarioService {
         return Optional.empty();
     }
 
+    public Optional<Usuario> buscarPorLogin(String login) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByLogin(login);
+        if (usuarioOptional.isPresent()) {
+            return usuarioOptional;
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Usuario> buscarPorNome(String nome) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByNome(nome);
+        if (usuarioOptional.isPresent()) {
+            return usuarioOptional;
+        }
+        return Optional.empty();
+    }
+
     public Optional<Usuario> buscarPorEmail(String email) {
         return this.usuarioRepository.findByEmail(email);
+    }
+
+    private String generateRandomToken() {
+        Random rand = new Random();
+        return String.format("%05d", rand.nextInt(100000));
     }
 }

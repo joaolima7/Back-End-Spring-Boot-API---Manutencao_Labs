@@ -55,9 +55,29 @@ public class UsuarioController {
         return ResponseEntity.ok().body(users);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestParam String login, @RequestParam String senha) {
+    @GetMapping("/loginsenha")
+    public ResponseEntity<Usuario> findByLoginSenha(@RequestParam String login, @RequestParam String senha) {
         Optional<Usuario> usuario = this.usuarioService.buscarPorLoginESenha(login, senha);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/login/{login}")
+    public ResponseEntity<Usuario> findByLogin(@PathVariable String login) {
+        Optional<Usuario> usuario = this.usuarioService.buscarPorLogin(login);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<Usuario> findByName(@PathVariable String nome) {
+        Optional<Usuario> usuario = this.usuarioService.buscarPorNome(nome);
         if (usuario.isPresent()) {
             return ResponseEntity.ok().body(usuario.get());
         } else {
