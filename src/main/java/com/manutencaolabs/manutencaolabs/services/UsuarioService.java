@@ -1,11 +1,10 @@
 package com.manutencaolabs.manutencaolabs.services;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.manutencaolabs.manutencaolabs.repositories.UsuarioRepository;
 import com.manutencaolabs.models.Usuario;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,14 +18,28 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // Métodos de Serviços
-
     public List<Usuario> listUsuarios() {
         return this.usuarioRepository.findAll();
     }
 
     public Optional<Usuario> searchUsuarioById(Long id) {
         return this.usuarioRepository.findById(id);
+    }
+
+    public Usuario generateTokenForUser(String email) {
+        Optional<Usuario> usuarioOptional = buscarPorEmail(email);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            String token = generateRandomToken();
+            usuario.setToken(token);
+            return usuarioRepository.save(usuario);
+        }
+        return null;
+    }
+
+    private String generateRandomToken() {
+        Random rand = new Random();
+        return String.format("%05d", rand.nextInt(100000));
     }
 
     public Usuario saveUsuario(Usuario usuario) {
@@ -55,16 +68,12 @@ public class UsuarioService {
     public Usuario updateUsuario(Usuario usuario) {
         Usuario newObj = this.usuarioRepository.findById(usuario.getCodusuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
-        // Atualize os campos necessários
         newObj.setLogin(usuario.getLogin());
         newObj.setSenha(usuario.getSenha());
         newObj.setNome_usuario(usuario.getNome_usuario());
         newObj.setEmail(usuario.getEmail());
-        newObj.setReset_token(usuario.getReset_token());
         newObj.setToken(usuario.getToken());
-        newObj.setReset_expires(usuario.getReset_expires());
         newObj.setNivelAcesso(usuario.getNivelAcesso());
-        // Adicione mais campos conforme necessário
 
         return this.usuarioRepository.save(newObj);
     }

@@ -1,17 +1,6 @@
 package com.manutencaolabs.models;
 
-import java.security.Timestamp;
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.manutencaolabs.models.Componente.CreateComponente;
-import com.manutencaolabs.models.Componente.UpdateComponente;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,9 +12,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
-import java.util.Collection;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -61,15 +47,8 @@ public class Usuario {
     @Column(name = "email", nullable = true, unique = true)
     private String email;
 
-    @Column(name = "reset_token", nullable = true)
-    private String reset_token;
-
     @Column(name = "token", nullable = true)
     private String token;
-
-    @Column(name = "reset_expires", nullable = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime reset_expires;
 
     @ManyToOne
     @JoinColumn(name = "nivelacesso_fk", nullable = false, updatable = false)
@@ -90,17 +69,15 @@ public class Usuario {
         this.codusuario = codusuario;
     }
 
-    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email, String reset_token,
-            String token, LocalDateTime reset_expires, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes,
+    public Usuario(Long codusuario, String login, String senha, String nome_usuario, String email,
+            String token, NivelAcesso nivelAcesso, Set<Manutencao> manutencoes,
             Set<Reclamacao> reclamacoesUser) {
         this.codusuario = codusuario;
         this.login = login;
         this.senha = senha;
         this.nome_usuario = nome_usuario;
         this.email = email;
-        this.reset_token = reset_token;
         this.token = token;
-        this.reset_expires = reset_expires;
         this.nivelAcesso = nivelAcesso;
         this.manutencoes = manutencoes;
         this.reclamacoesUser = reclamacoesUser;
@@ -146,28 +123,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getReset_token() {
-        return this.reset_token;
-    }
-
-    public void setReset_token(String reset_token) {
-        this.reset_token = reset_token;
-    }
-
     public String getToken() {
         return this.token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public LocalDateTime getReset_expires() {
-        return this.reset_expires;
-    }
-
-    public void setReset_expires(LocalDateTime reset_expires) {
-        this.reset_expires = reset_expires;
     }
 
     public NivelAcesso getNivelAcesso() {

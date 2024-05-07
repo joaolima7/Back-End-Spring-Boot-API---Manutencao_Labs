@@ -39,6 +39,16 @@ public class UsuarioController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("/generate-token/{email}")
+    public ResponseEntity<Usuario> generateToken(@PathVariable String email) {
+        Usuario usuario = usuarioService.generateTokenForUser(email);
+        if (usuario != null) {
+            return ResponseEntity.ok().body(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Usuario>> findAll() {
         List<Usuario> users = this.usuarioService.listUsuarios();
@@ -71,4 +81,5 @@ public class UsuarioController {
         obj.setCodusuario(id);
         this.usuarioService.updateUsuario(obj);
     }
+
 }
