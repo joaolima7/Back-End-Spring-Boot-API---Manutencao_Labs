@@ -102,4 +102,9 @@ public class UsuarioController {
         this.usuarioService.updateUsuario(obj);
     }
 
+    @PutMapping("/update")
+    public void updateSenha(@Valid @RequestBody Usuario obj) {
+        this.usuarioService.updateUsuario(obj);
+    }
+
 }

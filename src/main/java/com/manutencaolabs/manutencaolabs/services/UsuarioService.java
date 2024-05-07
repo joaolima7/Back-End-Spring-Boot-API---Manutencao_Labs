@@ -38,9 +38,7 @@ public class UsuarioService {
     }
 
     public Usuario saveUsuario(Usuario usuario) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        String hashedSenha = encoder.encode(usuario.getSenha());
+        String hashedSenha = passwordEncoder.encode(usuario.getSenha());
 
         usuario.setSenha(hashedSenha);
 
@@ -64,7 +62,7 @@ public class UsuarioService {
         Usuario newObj = this.usuarioRepository.findById(usuario.getCodusuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
         newObj.setLogin(usuario.getLogin());
-        newObj.setSenha(usuario.getSenha());
+        newObj.setSenha(passwordEncoder.encode(usuario.getSenha()));
         newObj.setNome(usuario.getNome());
         newObj.setEmail(usuario.getEmail());
         newObj.setToken(usuario.getToken());
