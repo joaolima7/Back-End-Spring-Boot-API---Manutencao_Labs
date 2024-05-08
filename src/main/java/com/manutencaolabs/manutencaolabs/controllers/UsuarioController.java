@@ -77,14 +77,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<Optional<Usuario>> findByName(@PathVariable String nome) {
+    public ResponseEntity<Usuario> findByName(@PathVariable String nome) {
         Optional<Usuario> usuario = this.usuarioService.buscarPorNome(nome);
-        return ResponseEntity.ok().body(usuario);
-        // if (usuario.isPresent()) {
-        // return ResponseEntity.ok().body(usuario.get());
-        // } else {
-        // return ResponseEntity.notFound().build();
-        // }
+        // return ResponseEntity.ok().body(usuario);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/add")
