@@ -34,9 +34,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<Optional<Usuario>> findByEmail(@PathVariable String email) {
-        Optional<Usuario> user = this.usuarioService.buscarPorEmail(email);
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<Usuario> findByEmail(@PathVariable String email) {
+        Optional<Usuario> usuario = this.usuarioService.buscarPorEmail(email);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/generate-token/{email}")
@@ -66,14 +70,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/login/{login}")
-    public ResponseEntity<Optional<Usuario>> findByLogin(@PathVariable String login) {
+    public ResponseEntity<Usuario> findByLogin(@PathVariable String login) {
         Optional<Usuario> usuario = this.usuarioService.buscarPorLogin(login);
-        return ResponseEntity.ok().body(usuario);
-        // if (usuario.isPresent()) {
-        // return ResponseEntity.ok().body(usuario.get());
-        // } else {
-        // return ResponseEntity.notFound().build();
-        // }
+        // return ResponseEntity.ok().body(usuario);
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok().body(usuario.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/nome/{nome}")
