@@ -1,6 +1,5 @@
 package com.manutencaolabs.models;
 
-
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,35 +17,35 @@ import jakarta.validation.constraints.NotNull;
 //Considerar a Classe uma tabela do banco
 @Entity
 
-//Definir o nome da tabela do banco
-@Table(name= Laboratorio.TABLE_NAME)
-
+// Definir o nome da tabela do banco
+@Table(name = Laboratorio.TABLE_NAME)
 
 public class Laboratorio {
 
     public interface CreateLaboratorio {
-    } 
+    }
+
     public interface UpdateLaboratorio {
     }
 
-    //Variavel final do nome da tabela, público e estatico
+    // Variavel final do nome da tabela, público e estatico
     public static final String TABLE_NAME = "laboratorio";
 
-    //Definir vcomo variável de Id
+    // Definir como variável de Id
     @Id
 
-    //Pra ser auto_increment
+    // Pra ser auto_increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    //Parametros da coluna no Spring
+    // Parametros da coluna no Spring
     @Column(name = "codlaboratorio", unique = true, nullable = false)
     private Long codlaboratorio;
 
-    @Column(name = "numerolaboratorio", nullable = false, unique = true) 
-    //Paramtros no banco de dados antes de criar um novo    
-    @NotNull(groups = {CreateLaboratorio.class})
+    @Column(name = "numerolaboratorio", nullable = false, unique = true)
+    // Paramtros no banco de dados antes de criar um novo
+    @NotNull(groups = { CreateLaboratorio.class })
     private Integer numerolaboratorio;
-    
+
     @OneToMany(mappedBy = "laboratorio")
     @JsonIgnore
     private Set<Computador> computadores;
@@ -55,21 +54,20 @@ public class Laboratorio {
     @JsonIgnore
     private Set<Reclamacao> reclamacoesLab;
 
-
     public Laboratorio() {
     }
 
-    public Laboratorio(Long codlaboratorio){
+    public Laboratorio(Long codlaboratorio) {
         this.codlaboratorio = codlaboratorio;
     }
 
-    public Laboratorio(Long codlaboratorio, Integer numerolaboratorio, Set<Computador> computadores, Set<Reclamacao> reclamacoesLab) {
+    public Laboratorio(Long codlaboratorio, Integer numerolaboratorio, Set<Computador> computadores,
+            Set<Reclamacao> reclamacoesLab) {
         this.codlaboratorio = codlaboratorio;
         this.numerolaboratorio = numerolaboratorio;
         this.computadores = computadores;
         this.reclamacoesLab = reclamacoesLab;
     }
-
 
     public Long getCodlaboratorio() {
         return this.codlaboratorio;
@@ -103,8 +101,4 @@ public class Laboratorio {
         this.reclamacoesLab = reclamacoesLab;
     }
 
-
-    
 }
-
-  
