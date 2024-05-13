@@ -41,7 +41,7 @@ public class Laboratorio {
     @Column(name = "codlaboratorio", unique = true, nullable = false)
     private Long codlaboratorio;
 
-    @Column(name = "numerolaboratorio", nullable = false, unique = true)
+    @Column(name = "numerolaboratorio", nullable = false)
     // Paramtros no banco de dados antes de criar um novo
     @NotNull(groups = { CreateLaboratorio.class })
     private Integer numerolaboratorio;

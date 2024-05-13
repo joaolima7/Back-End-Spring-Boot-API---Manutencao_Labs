@@ -50,7 +50,7 @@ public class Reclamacao {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dataHoraReclamacao;
 
-    @Column(name = "imagem", nullable = true, length = 3000000)
+    @Column(name = "imagem", nullable = true, length = 10000000)
     private String imagem;
 
     @ManyToOne
